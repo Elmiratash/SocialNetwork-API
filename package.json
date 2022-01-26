@@ -2,9 +2,9 @@
     "name": "socialnetwork-api",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "index.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node index.js"
     },
     "keywords": [],
     "author": "",
@@ -16,6 +16,7 @@
     "dependencies": {
         "dotenv": "^14.3.0",
         "express": "^4.17.2",
-        "mongoose": "^6.1.8"
+        "mongoose": "^6.1.8",
+        "nodemon": "^2.0.15"
     }
 }

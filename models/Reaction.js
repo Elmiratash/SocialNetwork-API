@@ -1,32 +1,32 @@
-const { Schema, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const { Schema, model, Types } = require('mongoose');
 
-// reaction schema tied to thought
+
+// Schema to create Student model
 const reactionSchema = new Schema({
-    // set custom id to avoid confusion with parent id
     reactionId: {
         type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
+        default: () => new Types.ObjectId(),
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (time) => new Date(time).toLocaleDateString()
     },
     reactionBody: {
         type: String,
         required: true,
-        maxlength: 280
+        minlength: 1,
+        maxlength: 280,
     },
     username: {
         type: String,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        get: createdAtVal => dateFormat(createdAtVal)
-    }
 }, {
     toJSON: {
-        getters: true
+        getters: true,
     },
-    id: false
 });
+
 
 module.exports = reactionSchema;
