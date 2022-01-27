@@ -1,59 +1,49 @@
-const { User, Thought, Reaction } = require("../models");
+const { User } = require('../models');
 
 module.exports = {
-    // GET all users
-    getUser(req, res) {
+    // Get all users
+    getUsers(req, res) {
         User.find()
-            .then(async(user) => {
-                const userObj = {
-                    user,
-                };
-                return res.json(userObj);
-            })
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .then((users) => res.json(users))
+            .catch((err) => res.status(500).json(err));
     },
-    // GET a single user by its _id and populated thought and friend data
+    // Get a user
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
-            .select("-__v")
-            .then(async(user) =>
+            .select('-__v')
+            .then((user) =>
                 !user ?
-                res.status(404).json({ message: "No user with that ID" }) :
-                res.json({
-                    user,
-                })
+                res.status(404).json({ message: 'No user with that ID' }) :
+                res.json(user)
             )
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+            .catch((err) => res.status(500).json(err));
     },
-    // POST a new user:
+    // Create a user
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
-            .catch((err) => res.status(500).json(err));
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
     },
-    // DELETE to remove user by its _id
+    // Delete a user
     deleteUser(req, res) {
-        User.findOneAndRemove({ _id: req.params.userId })
-            .then((user) =>
-                !user ?
-                res.status(404).json({ message: "No such user exists" }) :
-                Thought.deleteMany({ _id: { $in: course.user } })
-            )
-            .then(() => res.json({ message: "User and thoughts deleted!" }))
+        User.findOneAndDelete({ _id: req.params.userId })
+            //   .then((user) =>
+            //     !user
+            //       ? res.status(404).json({ message: 'No user with that ID' })
+            //       : Student.deleteMany({ _id: { $in: user.students } })
+            //   )
+            .then(() => res.json({ message: 'User deleted!' }))
             .catch((err) => res.status(500).json(err));
     },
-    // PUT to update a user by its _id
+    // Update a user
     updateUser(req, res) {
-        User.findOneAndUpdate({ _id: req.params.courseId }, { $set: req.body }, { runValidators: true, new: true })
+        User.findOneAndUpdate({ _id: req.params.userId }, { $set: req.body }, { runValidators: true, new: true })
             .then((user) =>
                 !user ?
-                res.status(404).json({ message: "No user with this ID!" }) :
+                res.status(404).json({ message: 'No user with this id!' }) :
                 res.json(user)
             )
             .catch((err) => res.status(500).json(err));
