@@ -1,14 +1,16 @@
 {
     "name": "socialnetwork-api",
     "version": "1.0.0",
-    "description": "## Your Task",
+    "description": "socialnetwork-api",
     "main": "sever.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "start": "node index",
+        "dev": "nodemon index",
+        "seed": "node utils/seed",
+        "heroku-postbuild": "node utils/seed.js"
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "dotenv": "^14.3.0",
         "express": "^4.17.2",
