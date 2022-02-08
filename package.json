@@ -4,10 +4,8 @@
     "description": "socialnetwork-api",
     "main": "sever.js",
     "scripts": {
-        "start": "node index",
-        "dev": "nodemon index",
-        "seed": "node utils/seed",
-        "heroku-postbuild": "node utils/seed.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
     },
     "author": "",
     "license": "MIT",
